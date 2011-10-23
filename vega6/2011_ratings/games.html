@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <title>Kingsview Chess Club - Games"</title>
+    <!-- Support libraries from Yahoo YUI project -->
+    <script type="text/javascript"
+	    src="http://chesstempo.com/js/pgnyui.js">
+    </script>
+
+    <script type="text/javascript"
+	    src="http://chesstempo.com/js/pgnviewer.js">
+    </script>
+
+    <script type="text/javascript">
+      new PgnViewer({
+        boardName: "board1",
+        pgnFile: '2011_ratings.pgn',
+        pieceSet: 'merida',
+        pieceSize: 46,
+        movesFormat: 'default'
+      }
+      );
+    </script>
+
+    <link type="text/css"
+	  rel="stylesheet"
+	  href="http://chesstempo.com/css/board-min.css" />
+
+    <style type="text/css">
+
+      body {
+	font: 80% arial, helvetica, sans-serif;
+        min-width:600px;    /* Minimum width of layout - remove line if not required */
+	margin: 0;
+      }
+
+      #header {
+        clear: both;
+	float: left;
+	width: 100%;
+	background: #ccc;
+      }
+
+      #footer {
+        clear: left;
+        padding:10px 20px;
+        background: #ccc;
+      }
+
+      #footer p {
+	margin: 0;
+      }
+
+      .ct-black-square {
+        background-color: CadetBlue;
+      }
+
+      .ct-white-square {
+        background-color: Azure;
+      }
+
+      .ct-board-border {
+        border:10px transparent;
+      }
+
+      .ct-board-move-comment {
+        color: blue;
+        font-weight: bold;
+      }
+
+      .ct-board-move-current {
+	color: white;
+        background-color: cadetblue;
+      }
+    </style>
+
+  </head>
+
+  <body>
+    <div id="header"><h1>Kingsview Chess Club</h1></div>
+
+    <div id="container2" style="float:left; width: 100%; background: #ff9; overflow: hidden">
+
+	<div id="navigation" style="float:left; width: 20%">
+	  <ul>
+	    <li><a href="/">Home</a></li>
+	    <li><a href="./">Tournament Home</a></li>
+	    <li><a href="2011_ratings.pgn">Download PGN file</a></li>
+	  </ul>
+	</div>
+
+	<div id="container1" style="float:left; width: 70%; background: white">
+
+
+	  <div id="board1-container" style="float: left; width: 380px"></div>
+	  <div id="board1-moves" style="padding: 3em"></div>
+
+	</div>
+      </div>
+
+    <div id="footer">
+      <p>PGN viewer by <a href="http://chesstempo.com">http://chesstempo.com</a></p>
+    </div>
+  </body>
+</html>
