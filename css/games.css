@@ -1,0 +1,75 @@
+body {
+    /* Minimum width of layout - remove line if not required */
+    min-width:600px;
+}
+
+/* BEGIN chesstempo.com styles */
+.ct-black-square {
+    background-color: CadetBlue;
+}
+
+.ct-white-square {
+    background-color: Azure;
+}
+
+/*
+.ct-board-border {
+    border:10px solid blue;
+}
+*/
+
+.ct-board-move-comment {
+    color: blue;
+    font-weight: bold;
+}
+
+.ct-board-move-current {
+    color: white;
+    background-color: cadetblue;
+}
+
+/* outer container */
+/* continer for navigation bar and inner container */
+#container2 {
+    margin: 0 0 0 15px;
+    float: left;
+    width: 100%;
+    /* background: #ff9;*/ /* this becomes the colour of the left navigation bar */
+}
+
+/* inner container #1 */
+#navigation {
+    float: left;
+    width: 220px;
+    font-size: 90%;
+}
+
+/* inner container #2 */
+#container1 {
+    float: left;
+    width: 70%;
+    /* reset background from outer container #container2.background */
+    background: white;
+}
+
+#board1-container {
+    float: left;
+    width: 380px; /* 46px PgnViewer.pieceSize 46*8 = 368 */
+}
+
+#board1-moves {
+    padding: 3em; /* Add top padding to skip pull-down and align with board. */
+}
+
+/* END chesstempo.com styles */
+
+#navigation ul {
+    list-style-type: none;
+    margin: 0 0 1em;
+    padding: 0 0 0 1em;
+}
+#navigation h2 {
+    /*padding: 0 0 0 0;*/
+    font-size: 100%;
+    margin: 1em 0 0 0;
+}
