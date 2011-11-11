@@ -12,8 +12,15 @@ tdir = $(instdir)/$(tournament)
 cssfiles = $(wildcard ../css/*.css)
 cssdir = $(instdir)/css
 scriptdir = ../../vega6xml
+gamesfiles = 2011_ratings.pgn 2011_ratings-2.pgn games.html games-2.html
 
-install: crosstablescore playercard rounds css
+install: games crosstablescore playercard css
+
+games: $(tdir) $(gamesfiles)
+	cp 2011_ratings.pgn $(tdir)
+	cp 2011_ratings-2.pgn $(tdir)
+	cp games.html $(tdir)
+	cp games-2.html $(tdir)
 
 crosstablescore: $(tdir) $(tdir)/index.html
 
