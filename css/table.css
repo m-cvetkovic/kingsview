@@ -27,14 +27,10 @@ tr { font-size: 100%; }
 
 /* tinted rows */
 tr.odd {
-	background: #DFD;
-}
-
-tr.even {
 	background: #FFF;
 }
 
-td.odd {
+tr.even {
 	background: #DFD;
 }
 
@@ -108,4 +104,9 @@ td {
 
 .black {
     background: #9c9;
+}
+
+.smalltablediv {
+    float: left;
+    margin: 1em;
 }

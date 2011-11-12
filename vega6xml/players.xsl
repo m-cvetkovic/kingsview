@@ -38,7 +38,7 @@
   <xsl:param name="nmax" select="8"/>
 
   <xsl:template match="tournament">
-    <tournament id="{@id}">
+    <tournament id="{@id}" name="{@name}">
       <xsl:apply-templates/>
     </tournament>
   </xsl:template>

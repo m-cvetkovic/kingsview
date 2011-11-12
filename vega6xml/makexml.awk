@@ -30,8 +30,7 @@ function calc_score(resultcode, iswhite) {
 } BEGIN {
 	print "<?xml version=\"1.0\" ?>";
 } NR == 2 {
-	tournament = $0;
-	printf ("<tournament id=\"%s\">\n", $0);
+	printf ("<tournament id=\"%s\" name=\"%s\">\n", fname, $0);
 } NR == 12 {
 	playercount = $1;
 	print "  <players>";

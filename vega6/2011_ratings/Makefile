@@ -13,8 +13,9 @@ cssfiles = $(wildcard ../css/*.css)
 cssdir = $(instdir)/css
 scriptdir = ../../vega6xml
 gamesfiles = 2011_ratings.pgn 2011_ratings-2.pgn games.html games-2.html
+xsldeps = $(scriptdir)/tournament.xsl
 
-install: games crosstablescore playercard css
+install: games crosstablescore playercard rounds css
 
 games: $(tdir) $(gamesfiles)
 	cp 2011_ratings.pgn $(tdir)
@@ -42,7 +43,7 @@ $(cssdir):
 $(tdir)/index.html: +crosstablescore.html $(tdir)
 	cp +crosstablescore.html $@
 
-+crosstablescore.html: +players.xml $(scriptdir)/crosstablescore.xsl
++crosstablescore.html: +players.xml $(xsldeps) $(scriptdir)/crosstablescore.xsl
 	xsltproc -o $@ $(scriptdir)/crosstablescore.xsl $<
 
 $(tdir)/playercard.html: +playercard.html $(tdir)
@@ -51,17 +52,17 @@ $(tdir)/playercard.html: +playercard.html $(tdir)
 $(tdir)/rounds.html: +rounds.html $(tdir)
 	cp +rounds.html $@
 
-+playercard.html: +players.xml $(scriptdir)/playercard.xsl
++playercard.html: +players.xml $(xsldeps) $(scriptdir)/playercard.xsl
 	xsltproc -o $@ $(scriptdir)/playercard.xsl $<
 
-+rounds.html: +players.xml $(scriptdir)/rounds.xsl
++rounds.html: +players.xml $(xsldeps) $(scriptdir)/rounds.xsl
 	xsltproc -o $@ $(scriptdir)/rounds.xsl $<
 
 +players.xml: +tournament.xml $(scriptdir)/players.xsl
 	xsltproc -o $@ $(scriptdir)/players.xsl $<
 
 +tournament.xml: $(vegfile) $(scriptdir)/makexml.awk
-	awk -f $(scriptdir)/makexml.awk $< >$@ || rm -f $@
+	awk -v fname=$(tournament) -f $(scriptdir)/makexml.awk $< >$@ || rm -f $@
 
 clean:
 	rm -f ./+* *~
