@@ -29,7 +29,7 @@
 
   <xsl:import href="tournament.xsl"/>
 
-  <!-- why this here, see note in "game" template  -->
+  <!-- For explanation why this is here, see note in "game" template.  -->
   <xsl:strip-space elements="round"/>
 
   <!-- Prevent the output -->

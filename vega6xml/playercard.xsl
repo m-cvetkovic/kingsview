@@ -33,7 +33,7 @@
 
   <xsl:import href="tournament.xsl"/>
 
-  <!-- why this here, see note in "game" template  -->
+  <!-- For explanation why this is here, see note in "player" template.  -->
   <xsl:strip-space elements="players"/>
 
   <!-- Prevent the output -->
@@ -42,63 +42,67 @@
   <xsl:template name="playertable">
     <xsl:param name="player"/>
     <div class="smalltablediv">
-    <xsl:if test="$player">
-      <xsl:element name="table">
-      <xsl:attribute name="id">p<xsl:value-of select="$player/@id"/></xsl:attribute>
+      <xsl:if test="$player">
+	<xsl:element name="table">
+	  <xsl:attribute name="id">p<xsl:value-of select="$player/@id"/></xsl:attribute>
 
-      <caption>
-	<xsl:value-of select="$player/name"/>
-	<xsl:text> ID=</xsl:text>
-	<xsl:value-of select="$player/@id"/>
-	<xsl:text> ELO=</xsl:text>
-	<xsl:value-of select="$player/rating"/>
-      </caption>
-      <thead>
-	<tr><th rowspan="2">Round</th><th rowspan="2">Color</th><th colspan="3">Oponent</th><th rowspan="2">Diff</th><th rowspan="2">Exp</th><th rowspan="2">Res</th></tr>
-	<tr><th>ID</th><th>Name</th><th>Rating</th></tr>
-      </thead>
+	  <caption>
+	    <xsl:value-of select="$player/name"/>
+	    <xsl:text> ID=</xsl:text>
+	    <xsl:value-of select="$player/@id"/>
+	    <xsl:text> ELO=</xsl:text>
+	    <xsl:value-of select="$player/rating"/>
+	  </caption>
+	  <thead>
+	    <tr><th rowspan="2">Round</th><th rowspan="2">Color</th><th colspan="3">Oponent</th><th rowspan="2">Diff</th><th rowspan="2">Exp</th><th rowspan="2">Res</th></tr>
+	    <tr><th>ID</th><th>Name</th><th>Rating</th></tr>
+	  </thead>
 
-      <tfoot>
-	<tr>
-	  <th colspan="5" rowspan="2">Games played:</th>
-	  <th class="center">W</th><th class="center">B</th><th class="center">T</th>
-	</tr>
-	<tr>
-	  <th class="center"><xsl:value-of select="count($player/games/game[@color='white'])"/></th>
-	  <th class="center"><xsl:value-of select="count($player/games/game[@color='black'])"/></th>
-	  <th class="center"><xsl:value-of select="count($player/games/game)"/></th>
-	</tr>
-	<tr>
-	  <th colspan="5">New Rating:</th>
-	  <th colspan="3"><xsl:value-of select="$player/newrating"/></th>
-	</tr>
-	<tr>
-	  <th colspan="5">Score from Best 8 Games:</th>
-	  <th colspan="3">
-	    <xsl:value-of select="sum($player/games/game[position() &lt; 8]/@score)"/>
-	  </th>
-	</tr>
-      </tfoot>
+	  <tfoot>
+	    <tr>
+	      <th colspan="5" rowspan="2">Games played:</th>
+	      <th class="center">W</th><th class="center">B</th><th class="center">T</th>
+	    </tr>
+	    <tr>
+	      <th class="center"><xsl:value-of select="count($player/games/game[@color='white'])"/></th>
+	      <th class="center"><xsl:value-of select="count($player/games/game[@color='black'])"/></th>
+	      <th class="center"><xsl:value-of select="count($player/games/game)"/></th>
+	    </tr>
+	    <tr>
+	      <th colspan="5">New Rating:</th>
+	      <th colspan="3"><xsl:value-of select="$player/newrating"/></th>
+	    </tr>
+	    <tr>
+	      <th colspan="5">Score from Best 8 Games:</th>
+	      <th colspan="3">
+		<xsl:value-of select="sum($player/games/game[position() &lt; 8]/@score)"/>
+	      </th>
+	    </tr>
+	  </tfoot>
 
-      <tbody>
-	<xsl:apply-templates select="$player/games"/>
-      </tbody>
+	  <tbody>
+	    <xsl:apply-templates select="$player/games"/>
+	  </tbody>
 
-    </xsl:element>
-    </xsl:if>
+	</xsl:element>
+      </xsl:if>
     </div>
 
   </xsl:template>
 
   <xsl:template match="player">
+    <!--
+	must force white stripping for players,
+	otherwise position() here counts WS nodes
+    -->
     <xsl:if test="position() mod 2 = 1">
       <div style="float: left">
-      <xsl:call-template name="playertable">
-	<xsl:with-param name="player" select="."/>
-      </xsl:call-template>
-      <xsl:call-template name="playertable">
-	<xsl:with-param name="player" select="following-sibling::player[1]"/>
-      </xsl:call-template>
+	<xsl:call-template name="playertable">
+	  <xsl:with-param name="player" select="."/>
+	</xsl:call-template>
+	<xsl:call-template name="playertable">
+	  <xsl:with-param name="player" select="following-sibling::player[1]"/>
+	</xsl:call-template>
       </div>
     </xsl:if>
   </xsl:template>
