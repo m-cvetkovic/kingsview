@@ -31,6 +31,29 @@ function calc_score(resultcode, iswhite) {
 	print "<?xml version=\"1.0\" ?>";
 } NR == 2 {
 	printf ("<tournament id=\"%s\" name=\"%s\">\n", fname, $0);
+	split (pgnfiles,ar);
+	pgncount = 0;
+	for (pgnfile in ar) {
+		v = ar[pgnfile];
+		sub (/r/, "", v);
+		sub (/[.]pgn$/, "", v);
+		if (match (v, /^[0-9]*$/))
+		    apgnfiles[v] = 1;
+		else {
+			name = v;
+			sub (/-x$/, " to end", name);
+			sub (/-/, " to ", name);
+			sub (/^/, "Rounds ", name);
+			if (!pgncount++) {
+				print "  <pgnfiles>";
+			}
+			printf ("    <pgn name=\"%s\" file=\"r%s.pgn\" html=\"r%s.html\"/>\n",
+				name, v, v);
+		}
+	}
+	if (pgncount) {
+				print "  </pgnfiles>";
+	}
 } NR == 12 {
 	playercount = $1;
 	print "  <players>";
@@ -91,7 +114,12 @@ function calc_score(resultcode, iswhite) {
 } END {
 	print "  <rounds>";
 	for (round=1; round<=rounds; ++round) {
-		printf ("    <round id=\"%d\">\n", round);
+		printf ("    <round id=\"%d\"", round);
+		if (round in apgnfiles) {
+			printf (" pgnfile=\"r%d.pgn\" htmlfile=\"r%d.html\"",
+				round, round);
+		}
+		printf (">\n", round);
 		for (game=1; game<=roundgames[round]; ++game) {
 			rc = resultcode[round,game];
 			printf ("      <game status=\"%d\">", rc != 7 && rc != 9);

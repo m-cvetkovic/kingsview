@@ -55,6 +55,22 @@
     </html>
   </xsl:template>
 
+  <xsl:template match="pgnfiles"/>
+
+  <xsl:template match="pgn">
+    <tr>
+      <td>
+	<xsl:element name="a">
+	  <xsl:attribute name="href">
+	    <xsl:value-of select="@html"/>
+	  </xsl:attribute>
+	  <xsl:value-of select="@name"/>
+	</xsl:element>
+      </td>
+      <td><a href="{@file}">PGN</a></td>
+    </tr>
+  </xsl:template>
+
   <xsl:template match="tournament">
     <div id="header">
       <div style="float: left; width: 95px;">
@@ -86,15 +102,29 @@
 	      <li><a href="./">Cross Table</a></li>
 	      <li><a href="./playercard.html">Player Report</a></li>
 	      <li><a href="./rounds.html">Game Results</a></li>
+	    </ul>
+	    <h2>Games:</h2>
+	    <ul>
 	      <li>
-		<a href="games.html">Rounds 1-6 games</a>
-		<xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-		<a href="2011_ratings.pgn">download</a>
-	      </li>
-	      <li>
-		<a href="games-2.html">Rounds 6-* games</a>
-		<xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-		<a href="2011_ratings-2.pgn">download</a>
+		  <table>
+		    <xsl:apply-templates select="//pgnfiles/pgn"/>
+		    <xsl:for-each select="//rounds/round[@htmlfile]">
+		      <tr>
+			<td>
+			  <xsl:element name="a">
+			    <xsl:attribute name="href">
+			      <xsl:value-of select="@htmlfile"/>
+			    </xsl:attribute>
+			    <xsl:text>Round </xsl:text>
+			    <xsl:value-of select="@id"/>
+			  </xsl:element>
+			</td>
+			<td>
+			  <a href="{@pgnfile}">PGN</a>
+			</td>
+		      </tr>
+		    </xsl:for-each>
+		  </table>
 	      </li>
 	    </ul>
 	    <h2>Resources</h2>

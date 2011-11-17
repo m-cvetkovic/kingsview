@@ -43,6 +43,10 @@
     </tournament>
   </xsl:template>
 
+  <xsl:template match="pgnfiles">
+    <xsl:copy-of select="."/>
+  </xsl:template>
+
   <xsl:template match="players">
     <players>
       <xsl:apply-templates/>
