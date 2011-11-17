@@ -81,7 +81,9 @@
 	  </tfoot>
 
 	  <tbody>
-	    <xsl:apply-templates select="$player/games"/>
+	    <xsl:apply-templates select="$player/games">
+	      <!--xsl:sort select="@round" data-type="number"/-->
+	    </xsl:apply-templates>
 	  </tbody>
 
 	</xsl:element>
@@ -109,7 +111,7 @@
 
   <xsl:template match="player/games">
       <xsl:apply-templates>
-	<xsl:sort select="@round"/>
+	<xsl:sort select="@round" data-type="number"/>
       </xsl:apply-templates>
   </xsl:template>
 
