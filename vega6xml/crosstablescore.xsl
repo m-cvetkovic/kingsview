@@ -153,7 +153,7 @@
 
       <td class="number"><xsl:value-of select="count(games/game[@color='white'])"/></td>
       <td class="number"><xsl:value-of select="count(games/game[@color='black'])"/></td>
-      <td class="summarynumber"><xsl:value-of select="count(games/game)"/></td>
+      <td class="summarynumber"><xsl:value-of select="count(games/game[@status='1'])"/></td>
       <td class="number"><xsl:value-of select="perfrt"/></td>
       <td class="summarynumber"><xsl:value-of select="newrating"/></td>
       <td class="number"><xsl:value-of select="sum(games/game/@score)"/></td>

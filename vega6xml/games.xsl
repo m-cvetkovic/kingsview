@@ -86,44 +86,7 @@
 	</div>
 
 	<div id="container2">
-	  <div id="navigation">
-	    <h2><xsl:value-of select="/tournament/@name"/></h2>
-	    <ul>
-	      <li><a href="/">Home</a></li>
-	    </ul>
-	    <h2><xsl:value-of select="@name"/></h2>
-	    <ul>
-	      <li><a href="./">Cross Table</a></li>
-	      <li><a href="./playercard.html">Player Report</a></li>
-	      <li><a href="./rounds.html">Game Results</a></li>
-	    </ul>
-	    <h2>Games:</h2>
-	    <ul>
-		  <table>
-	      <xsl:apply-templates select="//pgnfiles/pgn"/>
-	      <xsl:for-each select="//rounds/round[@htmlfile]">
-		<li>
-		  <xsl:element name="a">
-		    <xsl:attribute name="href">
-		      <xsl:value-of select="@htmlfile"/>
-		    </xsl:attribute>
-		    <xsl:text>Round</xsl:text>
-		    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-		    <xsl:value-of select="@id"/>
-		  </xsl:element>
-		  <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-		  <a href="{@pgnfile}">PGN</a>
-		</li>
-	      </xsl:for-each>
-		  </table>
-	    </ul>
-	    <h2>Resources</h2>
-	    <ul>
-	  <li><a href="http://chesstempo.com/pgn-viewer.html">ChessTempo PGN Viewer</a></li>
-	  <li><a href="http://vegachess.com">VEGA PRO Tournament SW</a></li>
-	  <li><a href="http://scid.sourceforge.net/">PGN files by SCID</a></li>
-	    </ul>
-	  </div>
+	  <xsl:call-template name="navigation"/>
 
 	  <div id="container1">
 	    <div id="board1-container"></div>

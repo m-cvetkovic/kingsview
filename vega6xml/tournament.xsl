@@ -71,6 +71,51 @@
     </tr>
   </xsl:template>
 
+  <xsl:template name="navigation">
+    <div id="navigation">
+      <h2></h2>
+      <ul>
+	<li><a href="/">Home</a></li>
+      </ul>
+      <h2><xsl:value-of select="/tournament/@name"/></h2>
+      <ul>
+	<li><a href="./">Cross Table</a></li>
+	<li><a href="./playercard.html">Player Report</a></li>
+	<li><a href="./rounds.html">Game Results</a></li>
+      </ul>
+      <h2>Games:</h2>
+      <ul>
+	<li>
+	  <table>
+	    <xsl:apply-templates select="//pgnfiles/pgn"/>
+	    <xsl:for-each select="//rounds/round[@htmlfile]">
+	      <tr>
+		<td>
+		  <xsl:element name="a">
+		    <xsl:attribute name="href">
+		      <xsl:value-of select="@htmlfile"/>
+		    </xsl:attribute>
+		    <xsl:text>Round </xsl:text>
+		    <xsl:value-of select="@id"/>
+		  </xsl:element>
+		</td>
+		<td>
+		  <a href="{@pgnfile}">PGN</a>
+		</td>
+	      </tr>
+	    </xsl:for-each>
+	  </table>
+	</li>
+      </ul>
+      <h2>Resources</h2>
+      <ul>
+	<li><a href="http://chesstempo.com/pgn-viewer.html">ChessTempo PGN Viewer</a></li>
+	<li><a href="http://vegachess.com">VEGA PRO Tournament SW</a></li>
+	<li><a href="http://scid.sourceforge.net/">PGN files by SCID</a></li>
+      </ul>
+    </div>
+  </xsl:template>
+
   <xsl:template match="tournament">
     <div id="header">
       <div style="float: left; width: 95px;">
@@ -92,49 +137,7 @@
 	</div>
 
 	<div class="col2">
-	  <div id="navigation">
-	    <h2></h2>
-	    <ul>
-	      <li><a href="/">Home</a></li>
-	    </ul>
-	    <h2><xsl:value-of select="@name"/></h2>
-	    <ul>
-	      <li><a href="./">Cross Table</a></li>
-	      <li><a href="./playercard.html">Player Report</a></li>
-	      <li><a href="./rounds.html">Game Results</a></li>
-	    </ul>
-	    <h2>Games:</h2>
-	    <ul>
-	      <li>
-		  <table>
-		    <xsl:apply-templates select="//pgnfiles/pgn"/>
-		    <xsl:for-each select="//rounds/round[@htmlfile]">
-		      <tr>
-			<td>
-			  <xsl:element name="a">
-			    <xsl:attribute name="href">
-			      <xsl:value-of select="@htmlfile"/>
-			    </xsl:attribute>
-			    <xsl:text>Round </xsl:text>
-			    <xsl:value-of select="@id"/>
-			  </xsl:element>
-			</td>
-			<td>
-			  <a href="{@pgnfile}">PGN</a>
-			</td>
-		      </tr>
-		    </xsl:for-each>
-		  </table>
-	      </li>
-	    </ul>
-	    <h2>Resources</h2>
-	    <ul>
-	      <li><a href="http://chesstempo.com/pgn-viewer.html">ChessTempo PGN Viewer</a></li>
-	      <li><a href="http://vegachess.com">VEGA PRO Tournament SW</a></li>
-	      <li><a href="http://scid.sourceforge.net/">PGN files by SCID</a></li>
-	    </ul>
-	  </div>
-	  <!-- Column 1 end -->
+	  <xsl:call-template name="navigation"/>
 	</div>
       </div>
     </div>

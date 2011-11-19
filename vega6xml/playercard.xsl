@@ -148,6 +148,9 @@
 	    <xsl:value-of select="@score"/>
 	  </xsl:otherwise>
 	</xsl:choose>
+	<xsl:if test="@oponentrating &lt; ../../weakest8oponent">
+	  <xsl:text>*</xsl:text>
+	</xsl:if>
       </td>
     </xsl:element>
   </xsl:template>

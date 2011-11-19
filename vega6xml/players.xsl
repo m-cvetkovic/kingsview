@@ -195,6 +195,16 @@
 	  <best8score>
 	    <xsl:value-of select="sum(exsl:node-set($bestgames)/game[position() &lt; $nmax+1]/@score)"/>
 	  </best8score>
+	  <weakest8oponent>
+	    <xsl:choose>
+	      <xsl:when test="count(exsl:node-set($bestgames)/game) &gt; $nmax">
+		<xsl:value-of select="exsl:node-set($bestgames)/game[position()=$nmax]/@oponentrating"/>
+	      </xsl:when>
+	      <xsl:otherwise>
+		<xsl:text>0</xsl:text>
+	      </xsl:otherwise>
+	    </xsl:choose>
+	  </weakest8oponent>
 
 	  <newrating>
 	    <xsl:call-template name="newrt">
