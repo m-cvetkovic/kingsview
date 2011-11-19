@@ -78,20 +78,7 @@ a3 32.Rf1 Qxf1+ 33.Kxf1 a2 34.Nc2 Bc3 1-0
 [EventDate "2011.09.14"]
 [TimeControl "40/4800:3600"]
 
-1.e4 e5 2.Nf3 Nc6 3.Bb5 Nf6 4.Nc3 Bc5 5.d3 d6 6.h3 O-O 7.O-O Be6 8.Na4 Bb6
-9.Ng5 Qe7 10.Nxe6 fxe6 11.Nxb6 axb6 12.c3 Rad8 13.Ba4 d5 14.exd5 exd5 15.
-Bb3 Kh8 16.Bg5 Qf7 17.Qf3 Qg6 18.Bh4 e4 19.dxe4 dxe4 20.Qe2 Rde8 21.Bc2 
-Nh5 22.Qg4 Qxg4 23.hxg4 Nf4 24.Rfe1 Nd3 $6 {Better was} 25.Re3 ( 25.Bxd3 
-exd3 26.Bg3 b5 ( 26...d2 27.Rxe8 Rxe8 28.f3 Rd8 29.Rd1 Rd7 ) 27.Bxc7 ) 
-25...Nxb2 26.Bxe4 $6 Nc4 27.Ree1 Nd2 28.Bf5 ( 28.Bd5 $1 {The knight is 
-trapped!} ) 28...Na5 29.Bg3 Nac4 30.Bxc7 Ra8 31.Re7 Ra3 32.Bf4 Rxc3 $2 {
-Knight is trapped} 33.Rxb7 $2 {but white doesn't see it} ( 33.Rd1 h5 34.
-Bxd2 Nxd2 35.Rxd2 ) 33...g6 34.Bxd2 $4 {winning is} ( 34.Bh6 gxf5 35.Bxf8 
-) 34...Nxd2 35.Be6 Ne4 36.Rf1 Rc2 37.f3 Nc3 38.Rxb6 Rd8 39.Bb3 Rb2 40.Re1 
-Rdd2 41.Re8+ $2 {lets the king escape} 41...Kg7 42.g5 Rxg2+ 43.Kh1 Rxg5 
-44.Rg8+ $4 ( 44.Rb7+ Kh6 45.Rh8 Re5 46.Rhxh7+ Kg5 47.Rbe7 $15 ) 44...Kh6 
-45.f4 Rf5 46.Re6 Rxf4 47.Kg1 Rff2 48.Bc4 Nxa2 49.Re3 Rg2+ 50.Kf1 Rh2 51.
-Kg1 1/2-1/2
+1.e4 e5 2.Nf3 Nc6 3.Bb5 Nf6 4.Nc3 Bc5 5.d3 d6 6.h3 O-O 7.O-O Be6 8.Na4 Bb6 9.Ng5 Qe7 10.Nxe6 fxe6 11.Nxb6 axb6 12.c3 Rad8 13.Ba4 d5 14.exd5 exd5 15.Bb3 Kh8 16.Bg5 Qf7 17.Qf3 Qg6 18.Bh4 e4 19.dxe4 dxe4 20.Qe2 Rde8 21.Bc2 Nh5 22.Qg4 Qxg4 23.hxg4 Nf4 24.Rfe1 Nd3 25.Re3 $6 {better was:} ( 25.Bxd3 exd3 26.Bg3 b5 ( 26...d2 27.Rxe8 Rxe8 28.f3 Rd8 29.Rd1 Rd7 ) 27.Bxc7 ) 25...Nxb2 26.Bxe4 $6 Nc4 27.Ree1 Nd2 28.Bf5 ( 28.Bd5 $1 {The knight is trapped!} ) 28...Na5 29.Bg3 Nac4 30.Bxc7 Ra8 31.Re7 Ra3 32.Bf4 Rxc3 $2 {Knight is trapped} 33.Rxb7 $2 {but white doesn't see it} ( 33.Rd1 h5 34.Bxd2 Nxd2 35.Rxd2 ) 33...g6 34.Bxd2 $4 {winning is} ( 34.Bh6 gxf5 35.Bxf8 ) 34...Nxd2 35.Be6 Ne4 36.Rf1 Rc2 37.f3 Nc3 38.Rxb6 Rd8 39.Bb3 Rb2 40.Re1 Rdd2 41.Re8+ $2 {lets the king escape} 41...Kg7 42.g5 Rxg2+ 43.Kh1 Rxg5 44.Rg8+ $4 ( 44.Rb7+ Kh6 45.Rh8 Re5 46.Rhxh7+ Kg5 47.Rbe7 $15 ) 44...Kh6 45.f4 Rf5 46.Re6 Rxf4 47.Kg1 Rff2 48.Bc4 Nxa2 49.Re3 Rg2+ 50.Kf1 Rh2 51.Kg1 1/2-1/2
 
 [Event "2011 Rating"]
 [Site "Kingsview Chess Club"]

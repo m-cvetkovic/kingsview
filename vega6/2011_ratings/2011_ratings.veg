@@ -14,17 +14,17 @@ NAME;                 COUNTRY;BIRTHDAY;G;TITLE;IDFIDE;ELOFIDE; IDNAT;ELONAT;K;IS
 Pat Lumia                     ;---;  00/00/00;m; NC;       0;    0;       0; 1852;32; 1
 William Sealy                 ;---;  00/00/00;m; NC;       0;    0;       0; 1839;32; 0
 Bruce Bryan                   ;---;  00/00/00;m; NC;       0;    0;       0; 1836;32; 1
-Joe Parisi                    ;---;  00/00/00;m; NC;       0;    0;       0; 1823;32; 1
+Joe Parisi                    ;---;  00/00/00;m; NC;       0;    0;       0; 1823;32; 0
 Moe Kamkar                    ;---;  00/00/00;m; NC;       0;    0;       0; 1816;32; 0
 Ted Robbins                   ;---;  00/00/00;m; NC;       0;    0;       0; 1805;32; 1
-Glen Bryan                    ;---;  00/00/00;m; NC;       0;    0;       0; 1770;32; 1
+Glen Bryan                    ;---;  00/00/00;m; NC;       0;    0;       0; 1770;32; 0
 Tom Reilly                    ;---;  00/00/00;m; NC;       0;    0;       0; 1752;32; 1
-Aaron Sponagle                ;---;  00/00/00;m; NC;       0;    0;       0; 1733;32; 1
-Trevor Hincks                 ;---;  00/00/00;m; NC;       0;    0;       0; 1725;32; 1
+Aaron Sponagle                ;---;  00/00/00;m; NC;       0;    0;       0; 1733;32; 0
+Trevor Hincks                 ;---;  00/00/00;m; NC;       0;    0;       0; 1725;32; 0
 Zbigniew Szczerbicki          ;---;  00/00/00;m; NC;       0;    0;       0; 1697;32; 0
-Milan Cvetkovic               ;---;  00/00/00;m; NC;       0;    0;       0; 1665;32; 1
+Milan Cvetkovic               ;---;  00/00/00;m; NC;       0;    0;       0; 1665;32; 0
 Geof Bridge                   ;---;  00/00/00;m; NC;       0;    0;       0; 1652;32; 0
-Kim Chelvan                   ;---;  00/00/00;m; NC;       0;    0;       0; 1567;32; 1
+Kim Chelvan                   ;---;  00/00/00;m; NC;       0;    0;       0; 1567;32; 0
 Milan Maric                   ;---;  00/00/00;m; NC;       0;    0;       0; 1212;32; 1
 Steve Watson                  ;---;  00/00/00;m; NC;       0;    0;       0; 1703;32; 1
 Kyle France                   ;---;  00/00/00;m; NC;       0;    0;       0; 1703;32; 1
@@ -92,7 +92,7 @@ Edward Zepeda                 ;---;  00/00/00;m; NC;       0;    0;       0; 170
   3  0 0 1 2 0 1 0 1 2 0 
   4  2 1 0 1 2 1 1 1 0 0 
   5  0 0 0 0 0 0 0 0 0 0 
-  0  0 0 0 0 1 1 1 0 1 1 
+  6  0 0 0 0 1 1 1 0 1 1 
   7  0 1 2 1 2 1 0 1 2 1 
   8  2 1 2 0 0 0 0 0 0 0 
   9  1 1 1 2 0 0 0 2 1 0 

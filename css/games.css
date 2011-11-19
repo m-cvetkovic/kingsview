@@ -1,6 +1,6 @@
 body {
     /* Minimum width of layout - remove line if not required */
-    min-width:600px;
+    min-width:900px;
 }
 
 /* BEGIN chesstempo.com styles */
@@ -31,16 +31,18 @@ body {
 /* outer container */
 /* continer for navigation bar and inner container */
 #container2 {
-    margin: 0 0 0 15px;
+    /*margin: 0 0 0 15px;*/
+    margin: 0;
     float: left;
     width: 100%;
-    /* background: #ff9;*/ /* this becomes the colour of the left navigation bar */
+    background: #ff9; /* this becomes the colour of the left navigation bar */
 }
 
 /* inner container #1 */
 #navigation {
     float: left;
     width: 220px;
+    margin: 0 0 0 15px;
     font-size: 90%;
 }
 
@@ -49,16 +51,20 @@ body {
     float: left;
     width: 70%;
     /* reset background from outer container #container2.background */
-    background: white;
+    background: lightgrey;
 }
 
 #board1-container {
     float: left;
-    width: 380px; /* 46px PgnViewer.pieceSize 46*8 = 368 */
+    width: 400px; /* 46px PgnViewer.pieceSize 46*8 = 368 */
+    /*border: 2px solid grey;*/
 }
 
 #board1-moves {
-    padding: 3em; /* Add top padding to skip pull-down and align with board. */
+    height: 421px;
+    overflow: auto;
+    padding: 1em;
+    /*border: 2px solid grey;*/
 }
 
 /* END chesstempo.com styles */
@@ -69,7 +75,6 @@ body {
     padding: 0 0 0 1em;
 }
 #navigation h2 {
-    /*padding: 0 0 0 0;*/
     font-size: 100%;
     margin: 1em 0 0 0;
 }

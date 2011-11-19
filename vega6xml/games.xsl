@@ -62,7 +62,9 @@
         pgnFile: '<xsl:value-of select="$pgnfile"/>',
         pieceSet: 'merida',
         pieceSize: 46,
-        movesFormat: 'default'
+	showCoordinates: true,
+        movesFormat: "main_on_own_line",
+        newlineForEachMainMove: false
       }
       );
     </script>
