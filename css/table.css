@@ -37,6 +37,7 @@ tr.even {
 /* round robin game against himself */
 td.hole {
 	background:url(hole.gif) no-repeat;
+	padding: .5em .9em;
 }
 
 /* table cells */
@@ -110,3 +111,4 @@ td {
     float: left;
     margin: 1em;
 }
+

@@ -38,6 +38,7 @@
   <xsl:template match="round">
     <div class="smalltablediv">
       <xsl:element name="table">
+	<xsl:attribute name="id">r<xsl:value-of select="@id"/></xsl:attribute>
 
 	<caption>Round <xsl:value-of select="@id"/></caption>
 	<thead>
@@ -53,8 +54,10 @@
   </xsl:template>
 
   <xsl:template match="player">
-    <xsl:element name="a"><xsl:attribute name="href">playercard.html#p<xsl:value-of select="@id"/></xsl:attribute>
-    <xsl:value-of select="/tournament/players/player[@id=current()/@id]/name"/><xsl:value-of select="name"/></xsl:element>
+    <xsl:element name="a">
+      <xsl:attribute name="href">playercard.html#p<xsl:value-of select="@id"/></xsl:attribute>
+      <xsl:value-of select="/tournament/players/player[@id=current()/@id]/name"/>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="game">
@@ -85,6 +88,33 @@
 	  </xsl:otherwise>
 	</xsl:choose>
       </td>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="bye">
+    <!--
+	must force white stripping for round,
+	otherwise position() here counts WS nodes
+    -->
+
+    <xsl:element name="tr">
+      <xsl:attribute name="class">
+	<xsl:choose>
+	  <xsl:when test="position() mod 2">odd</xsl:when>
+	  <xsl:otherwise>even</xsl:otherwise>
+	</xsl:choose>
+      </xsl:attribute>
+
+      <td class="number"><xsl:value-of select="position()"/></td>
+      <td>
+	<xsl:element name="a">
+	  <xsl:attribute name="href">playercard.html#p<xsl:value-of select="@playerid"/></xsl:attribute>
+	  <xsl:value-of select="/tournament/players/player[@id=current()/@playerid]/name"/>
+	</xsl:element>
+      </td>
+
+      <td>BYE</td>
+      <td class="center">-</td>
     </xsl:element>
   </xsl:template>
 

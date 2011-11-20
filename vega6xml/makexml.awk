@@ -54,16 +54,64 @@ function calc_score(resultcode, iswhite) {
 	if (pgncount) {
 				print "  </pgnfiles>";
 	}
+} NR == 3 {
+	print "  <city>" $0 "</city>";
+#} NR == 4 {
+#       FIDE hosting federation
+#	print "<city>" $0 "</city>";
+} NR == 5 {
+	sub (/,/, "", $1);
+	print "  <begindate>" $1 "</begindate>" "<enddate>" $2 "</enddate>";
+#} NR == 6 {
+# myArbiter
+#} NR == 7 {
+# 0.5 1.0
+#    points draw and win
+#} NR == 8 {
+# 1 2 0 0 0 0 0 0 0 0
+# tiebreacks details: 0=not active, N=some tiebrack
+#  1: Buccholz Cut 1
+#  2: Buccholz Total
+#  3: Buccholz Median
+#  4: Sonneborn-Berger
+#  5: Cumulative
+#  6: Average Rat. Opp.
+#  7: Most Blacks
+#  8: Most Wins
+#  9: Av. Perf. Rat. Opp.
+} NR == 9 {
+# 5 5 9 0 1 1 0
+#   number_of_rounds
+#   current_round
+#   pairing_system: Swiss Dubov=1
+#   simple round robin = 2
+#   Swiss Vega = 3
+#   Swiss USCF = 4
+#   double round robin = 5
+#   amalfi rating = 6
+#   Swiss Lim = 7
+#   amalfi color = 8
+#   user defined = 9
+#   using_fide_rating_for_pairing: 1=yes, 0=no
+#   registration: 0=opened, 1=closed
+#   tournament_status= 0=wait pairing, 1=wait result
+#   use Kallithea 2009 rule for Buchholz: 1=yes, 0=no
+	pairing = $3;
+	print "  <pairing>" pairing "</pairing>";
+	if (pairing == 5)
+		sections=4; # Round Robin
+	else # pairing = 7
+		sections=5;; # swiss
 } NR == 12 {
 	playercount = $1;
 	print "  <players>";
-} NR >= 14 && NR < 14+playercount {
+} NR >= 13+1 && NR < 13+(1+playercount) {
 	split ($0, a, /;/);
 	sub (/ *$/, "", a[1]);
 	sub (/^ */, "", a[9]);
 
 	printf ("    <player id=\"%d\"><name>%s</name><rating>%d</rating></player>\n",NR-13,a[1],a[9]);
-} NR == 14+playercount {
+} NR == 13+(1+playercount) {
 	print "  </players>";
 #	print "  <colors>";
 #} NR >= 15+playercount && NR < 15+playercount*2 {
@@ -95,12 +143,17 @@ function calc_score(resultcode, iswhite) {
 #	for (i=2; i<NF; ++i)
 #		printf ("      <round id=\"%d\"><result>%d</result></round>\n", i-1, $i);
 #	print "    </playerround>";
-#} NR == 18+playercount*5 {
+#} NR == 18+playercount*sections {
 #	print "  </roundresults>";
-} NR == 18+playercount*5 + 1 {
+} NR == 13+(playercount+1)*sections+1 {
+# code pairing
+
+#	4(7)->46
+#	6(14)->108 (18+1)*5= 13+(playercount+1)*sections
 	rounds = split ($0, roundgames);
 	game = 0;
-} NR > 18+playercount*5 + 1 && NR < 18+playercount*5 + 1 + rounds {
+} NR > 13+(playercount+1)*sections+1 &&
+  NR < 13+(playercount+1)*sections+1 + rounds {
 	++game;
 	for (round=1; round<=rounds; ++round) {
 		if (game <= roundgames[round]) {
@@ -108,6 +161,7 @@ function calc_score(resultcode, iswhite) {
 			white[round,game] = substr(code,1,3);
 			black[round,game] = substr(code,4,3);
 			resultcode[round,game] = substr(code,7,1);
+			#print "ROUND:" round " game:" game " WHITE:" white[round,game] ":BLACK:" black[round,game];
 		}
 	}
 	maxgame = game;
@@ -121,15 +175,26 @@ function calc_score(resultcode, iswhite) {
 		}
 		printf (">\n", round);
 		for (game=1; game<=roundgames[round]; ++game) {
-			rc = resultcode[round,game];
-			printf ("      <game status=\"%d\">", rc != 7 && rc != 9);
-			printf ("<player id=\"%d\" color=\"white\" oponent=\"%d\" score=\"%s\"/>",
-				white[round,game], black[round,game],
-				calc_score(rc, 1));
-			printf ("<player id=\"%d\" color=\"black\" oponent=\"%d\" score=\"%s\"/>",
-				black[round,game], white[round,game],
-				calc_score(rc, 0));
-			print "</game>";
+			if (white[round,game] == "000") {
+				printf ("      <bye playerid=\"%d\"/>\n",
+					black[round,game]);
+			} else if (black[round,game] == "000") {
+				printf ("      <bye playerid=\"%d\"/>\n",
+					white[round,game]);
+			} else {
+				rc = resultcode[round,game];
+				if (rc == 1 || rc == 5 || rc == 0) status=1; # complete, counts
+				else if (rc == 7 || rc == 9) status=0; # not complete
+				else status=2; # complete, forfeit
+				printf ("      <game status=\"%d\">", status);
+				printf ("<player id=\"%d\" color=\"white\" oponent=\"%d\" score=\"%s\"/>",
+					white[round,game], black[round,game],
+					calc_score(rc, 1));
+				printf ("<player id=\"%d\" color=\"black\" oponent=\"%d\" score=\"%s\"/>",
+					black[round,game], white[round,game],
+					calc_score(rc, 0));
+				print "</game>";
+			}
 		}
 		print "    </round>";
 	}

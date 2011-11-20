@@ -35,13 +35,33 @@
 
   <xsl:output method="xml" indent="yes"/>
 
-  <xsl:param name="nmax" select="8"/>
+  <xsl:param name="nmax">
+    <xsl:choose>
+      <xsl:when test="/tournament/pairing=5">9999</xsl:when>
+      <xsl:otherwise>8</xsl:otherwise>
+    </xsl:choose>
+  </xsl:param>
 
+  <!--tournament id="{@id}" name="{@name}" nmax="{$nmax}" pairing="{pairing}"-->
   <xsl:template match="tournament">
-    <tournament id="{@id}" name="{@name}">
+    <xsl:element name="tournament">
+      <xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>
+      <xsl:attribute name="name"><xsl:value-of select="@name"/></xsl:attribute>
+      <xsl:attribute name="pairing"><xsl:value-of select="pairing"/></xsl:attribute>
+      <xsl:if test="$nmax != 9999">
+	<xsl:attribute name="nmax">
+	  <xsl:value-of select="$nmax"/>
+	</xsl:attribute>
+      </xsl:if>
       <xsl:apply-templates/>
-    </tournament>
+    </xsl:element>
   </xsl:template>
+
+  <!-- no output for these elements -->
+  <xsl:template match="city"/>
+  <xsl:template match="pairing"/>
+  <xsl:template match="begindate"/>
+  <xsl:template match="enddate"/>
 
   <xsl:template match="pgnfiles">
     <xsl:copy-of select="."/>
@@ -141,7 +161,7 @@
 	<xsl:value-of select="$absscore"/>
       </xsl:when>
       <xsl:otherwise>
-	<xsl:value-of select="1 - $absscore"/>
+	<xsl:value-of select="format-number(1 - $absscore,'0.00')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -153,34 +173,57 @@
       <xsl:variable name="games">
 	<xsl:for-each select="../../rounds/round">
 	  <xsl:variable name="pgame" select="game/player[@id=$id]"/>
-	  <xsl:if test="$pgame">
-	    <xsl:variable
-		name="oponentrating"
-		select="/tournament/players/player[@id=$pgame/@oponent]/rating"/>
-	    <xsl:variable name="expectresult">
-	      <xsl:call-template name="expectresult">
-		<xsl:with-param name="ratingdiff" select="$rating - $oponentrating"/>
-	      </xsl:call-template>
-	    </xsl:variable>
-	    <game round="{@id}"
-		  status="{$pgame/../@status}"
-		  oponent="{$pgame/@oponent}"
-		  oponentrating="{$oponentrating}"
-		  color="{$pgame/@color}"
-		  score="{$pgame/@score}"
-		  expectscore="{$expectresult}"/>
-	  </xsl:if>
+	  <xsl:choose>
+	    <xsl:when test="$pgame">
+	      <xsl:variable
+		  name="oponentrating"
+		  select="/tournament/players/player[@id=$pgame/@oponent]/rating"/>
+	      <xsl:variable name="expectresult">
+		<xsl:call-template name="expectresult">
+		  <xsl:with-param name="ratingdiff" select="$rating - $oponentrating"/>
+		</xsl:call-template>
+	      </xsl:variable>
+	      <game round="{@id}"
+		    status="{$pgame/../@status}"
+		    oponent="{$pgame/@oponent}"
+		    oponentrating="{$oponentrating}"
+		    color="{$pgame/@color}"
+		    score="{$pgame/@score}"
+		    expectscore="{$expectresult}"/>
+	    </xsl:when>
+	    <!-- bye in round-robin -->
+	    <!--xsl:when test="bye[@playerid=$id]">
+	      <game round="{@id}"
+		    status="2"
+		    oponent="-1"
+		    oponentrating="0"
+		    color="grey"
+		    score="0"
+		    expectscore="0"/>
+	    </xsl:when-->
+	    <!-- bye in swiss -->
+	    <xsl:otherwise>
+	      <game round="{@id}"
+		    status="2"
+		    oponent="0"
+		    oponentrating="0"
+		    color="grey"
+		    score="0"
+		    expectscore="0"/>
+	    </xsl:otherwise>
+	  </xsl:choose>
 	</xsl:for-each>
       </xsl:variable>
 
-      <xsl:if test="count(exsl:node-set($games)/game)">
+      <xsl:if test="/tournament/pairing=5 or count(exsl:node-set($games)/game[@status!=2]) != '0'">
 	<player id="{@id}">
 
 	  <xsl:copy-of select="name"/>
 	  <xsl:copy-of select="rating"/>
 
 	  <xsl:variable name="bestgames">
-	    <xsl:for-each select="exsl:node-set($games)/game[@status='1']">
+	    <!-- skip only adjourned games -->
+	    <xsl:for-each select="exsl:node-set($games)/game[@status!='0']">
 	      <xsl:sort
 		  select="@oponentrating" order="descending" data-type="number"/>
 	      <xsl:sort select="@score" order="descending" data-type="number"/>
@@ -208,14 +251,14 @@
 
 	  <newrating>
 	    <xsl:call-template name="newrt">
-	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game"/>
+	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[@status='1']"/>
 	      <xsl:with-param name="oldrating" select="rating"/>
 	    </xsl:call-template>
 	  </newrating>
 
 	  <perfrt>
 	    <xsl:call-template name="perfrt">
-	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game"/>
+	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[@status='1']"/>
 	    </xsl:call-template>
 	  </perfrt>
 

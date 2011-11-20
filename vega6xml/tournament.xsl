@@ -55,7 +55,12 @@
     </html>
   </xsl:template>
 
+  <!-- no output for these elements -->
   <xsl:template match="pgnfiles"/>
+  <xsl:template match="city"/>
+  <xsl:template match="pairing"/>
+  <xsl:template match="begindate"/>
+  <xsl:template match="enddate"/>
 
   <xsl:template match="pgn">
     <tr>
@@ -83,6 +88,7 @@
 	<li><a href="./playercard.html">Player Report</a></li>
 	<li><a href="./rounds.html">Game Results</a></li>
       </ul>
+      <xsl:if test="count(//pgnfiles/pgn) + count(//rounds/round[@htmlfile]) != 0">
       <h2>Games:</h2>
       <ul>
 	<li>
@@ -107,6 +113,7 @@
 	  </table>
 	</li>
       </ul>
+      </xsl:if>
       <h2>Resources</h2>
       <ul>
 	<li><a href="http://chesstempo.com/pgn-viewer.html">ChessTempo PGN Viewer</a></li>

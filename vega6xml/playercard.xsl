@@ -66,14 +66,23 @@
 	    <tr>
 	      <th class="center"><xsl:value-of select="count($player/games/game[@color='white'])"/></th>
 	      <th class="center"><xsl:value-of select="count($player/games/game[@color='black'])"/></th>
-	      <th class="center"><xsl:value-of select="count($player/games/game)"/></th>
+	      <th class="center"><xsl:value-of select="count($player/games/game[@status='1'])"/></th>
 	    </tr>
 	    <tr>
-	      <th colspan="5">New Rating:</th>
+	      <th colspan="5">New rating:</th>
 	      <th colspan="3"><xsl:value-of select="$player/newrating"/></th>
 	    </tr>
 	    <tr>
-	      <th colspan="5">Score from Best 8 Games:</th>
+	      <th colspan="5">
+	      <xsl:text>Score</xsl:text>
+	      <xsl:if test="/tournament/@nmax">
+		<xsl:text> from best </xsl:text>
+		<xsl:value-of select="/tournament/@nmax"/>
+		<xsl:text> games</xsl:text>
+	      </xsl:if>
+	      <xsl:text>:</xsl:text>
+	      </th>
+
 	      <th colspan="3">
 		<xsl:value-of select="sum($player/games/game[position() &lt; 8]/@score)"/>
 	      </th>
@@ -81,9 +90,7 @@
 	  </tfoot>
 
 	  <tbody>
-	    <xsl:apply-templates select="$player/games">
-	      <!--xsl:sort select="@round" data-type="number"/-->
-	    </xsl:apply-templates>
+	    <xsl:apply-templates select="$player/games"/>
 	  </tbody>
 
 	</xsl:element>
@@ -124,7 +131,19 @@
 	</xsl:choose>
       </xsl:attribute>
 
-      <td class="summarynumber"><xsl:value-of select="@round"/></td>
+      <!--td class="summarynumber"><xsl:value-of select="@round"/></td-->
+      <td class="number">
+	<xsl:element name="a">
+	  <xsl:attribute name="href">rounds.html#r<xsl:value-of select="@round"/></xsl:attribute>
+	  <xsl:value-of select="@round"/>
+	</xsl:element>
+      </td>
+
+      <xsl:choose>
+	<xsl:when test="@oponent=0">
+	  <td/><td/><td>BYE</td><td/><td/><td/><td/>
+	</xsl:when>
+	<xsl:otherwise>
       <xsl:element name="td">
 	<xsl:attribute name="class"><xsl:value-of select="@color"/></xsl:attribute>
 	<xsl:value-of select="@color"/>
@@ -141,17 +160,25 @@
       <td class="number"><xsl:value-of select="@expectscore"/></td>
       <td class="number">
 	<xsl:choose>
-	  <xsl:when test="@status=0">
+	  <xsl:when test="@status='1'">
+	    <!-- complete rated games -->
+	    <xsl:value-of select="@score"/>
+	    <xsl:if test="@oponentrating &lt; ../../weakest8oponent">
+	      <xsl:text>*</xsl:text>
+	    </xsl:if>
+	  </xsl:when>
+	  <xsl:when test="@status='0'">
+	    <!-- adjourned games -->
 	    <xsl:text>adj</xsl:text>
 	  </xsl:when>
 	  <xsl:otherwise>
-	    <xsl:value-of select="@score"/>
+	    <!-- forfeit games -->
+	    <xsl:value-of select="@score"/><xsl:text>F</xsl:text>
 	  </xsl:otherwise>
 	</xsl:choose>
-	<xsl:if test="@oponentrating &lt; ../../weakest8oponent">
-	  <xsl:text>*</xsl:text>
-	</xsl:if>
       </td>
+	</xsl:otherwise>
+      </xsl:choose>
     </xsl:element>
   </xsl:template>
 
