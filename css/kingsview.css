@@ -33,48 +33,6 @@ a:hover {
     padding:.4em 15px 0 15px;
     margin:0;
 }
-/*
-#header ul {
-    clear:left;
-    float:left;
-    width:100%;
-    list-style:none;
-    margin:10px 0 0 0;
-    padding:0;
-}
-#header ul li {
-    display:inline;
-    list-style:none;
-    margin:0;
-    padding:0;
-}
-#header ul li a {
-    display:block;
-    float:left;
-    margin:0 0 0 1px;
-    padding:3px 10px;
-    text-align:center;
-    background:#eee;
-    color:#000;
-    text-decoration:none;
-    position:relative;
-    left:15px;
-    line-height:1.3em;
-}
-#header ul li a:hover {
-    background:#369;
-    color:#fff;
-}
-#header ul li a.active,
-#header ul li a.active:hover {
-    color:#fff;
-    background:#000;
-    font-weight:bold;
-}
-#header ul li a span {
-    display:block;
-}
-*/
 
 #footer {
     clear: both;
@@ -89,60 +47,4 @@ a:hover {
     margin: 0;
 }
 
-/* column container */
-.colmask {
-    clear: both;
-    float: left;
-    width: 100%;			/* width of whole page */
-    /* This fixes the IE7 overflow hidden bug and stops the layout
-       jumping out of place */
-    position: relative;
-    overflow: hidden;	/* This chops off any overhanging divs */
-}
-
-/* http: //matthewjamestaylor.com/blog/equal-height-columns-cross-browser-css-no-hacks */
-
-/* 2 column left menu settings */
-.leftmenu {
-    background: #ff9;
-}
-.leftmenu .colright {
-    background: white;
-
-    float: left;
-    width: 200%;
-
-    position: relative;
-    left: 250px;
-}
-.leftmenu .col1wrap {
-    float: right;
-    width: 50%;
-    position: relative;
-    right: 250px;
-    padding-bottom: 1em;
-}
-.leftmenu .col1 {
-    margin: 0 15px 0 265px;
-    position: relative;
-    right: 100%;
-    overflow: hidden;
-}
-.leftmenu .col2 {
-    float: left;
-    width: 220px;
-    position: relative;
-    right: 235px;
-    font-size: 90%;
-}
-.leftmenu .col2 ul {
-    list-style-type: none;
-    margin: 0 0 1em;
-    padding: 0 0 0 1em;
-}
-.leftmenu .col2 h2 {
-    /*padding: 0 0 0 0;*/
-    font-size: 100%;
-    margin: 1em 0 0 0;
-}
 

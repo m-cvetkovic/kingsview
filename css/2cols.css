@@ -10,30 +10,8 @@ body {
        of Internet Explorer */
     /*font-size:90%;*/
 }
-/*
-a {
-    color:#369;
-}
 
-a:hover {
-    color:#fff;
-    background:#369;
-    text-decoration:none;
-}
-
-h1, h2, h3 {
-    margin:.8em 0 .2em 0;
-    padding:0;
-}
-
-p {
-    margin:.4em 0 .8em 0;
-    padding:0;
-}
-img {
-    margin:10px 0 5px;
-}
-*/
+/* http: //matthewjamestaylor.com/blog/equal-height-columns-cross-browser-css-no-hacks */
 
 /* column container */
 .colmask {
@@ -41,7 +19,7 @@ img {
     clear:both;
     float:left;
     width:100%;			/* width of whole page */
-    overflow:hidden;	/* This chops off any overhanging divs */
+    /* overflow:hidden;	*/ /* This chops off any overhanging divs */
 }
 /* 2 column left menu settings */
 .leftmenu {
@@ -65,11 +43,22 @@ img {
     margin:0 15px 0 265px;
     position:relative;
     right:100%;
-    overflow:hidden;
+    /* overflow:hidden; */
 }
 .leftmenu .col2 {
     float:left;
     width:220px;
     position:relative;
     right:235px;
+    font-size: 90%;
 }
+.leftmenu .col2 ul {
+    list-style-type: none;
+    margin: 0 0 1em;
+    padding: 0 0 0 1em;
+}
+.leftmenu .col2 h2 {
+    font-size: 100%;
+    margin: 1em 0 0 0;
+}
+

@@ -1,0 +1,22 @@
+/* Prevent displaying navigation bar when printing */
+.leftmenu .colright {
+    width: 100%;
+    left: 0;
+}
+.leftmenu .col1wrap {
+    width:100%;
+    right: 0;
+}
+.leftmenu .col1 {
+    margin-left: 15px;
+    right: 0;
+}
+.leftmenu .col2 {
+    /* navigation bar */
+    width: 0;
+    display: none;
+}
+.smalltablediv {
+float: none;
+page-break-inside: avoid;
+}

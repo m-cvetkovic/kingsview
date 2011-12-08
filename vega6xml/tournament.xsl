@@ -46,6 +46,7 @@
 	<link type="text/css" rel="stylesheet" href="/css/kingsview.css"/>
 	<link type="text/css" rel="stylesheet" href="/css/2cols.css"/>
 	<link type="text/css" rel="stylesheet" href="/css/table.css"/>
+	<link type="text/css" rel="stylesheet" media="print" href="/css/2cols-print.css" />
 
       </head>
 

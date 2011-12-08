@@ -37,8 +37,8 @@
 
   <xsl:param name="nmax">
     <xsl:choose>
-      <xsl:when test="/tournament/pairing=5">9999</xsl:when>
-      <xsl:otherwise>8</xsl:otherwise>
+      <xsl:when test="/tournament/pairing=7">8</xsl:when>
+      <xsl:otherwise>9999</xsl:otherwise>
     </xsl:choose>
   </xsl:param>
 
