@@ -37,6 +37,7 @@
 
   <xsl:param name="nmax">
     <xsl:choose>
+      <!-- Swiss Lim pairing is max8 -->
       <xsl:when test="/tournament/pairing=7">8</xsl:when>
       <xsl:otherwise>9999</xsl:otherwise>
     </xsl:choose>

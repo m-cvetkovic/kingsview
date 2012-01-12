@@ -101,7 +101,7 @@ function calc_score(resultcode, iswhite) {
 	if (pairing == 5)
 		sections=4; # Round Robin
 	else # pairing = 7
-		sections=5;; # swiss
+		sections=5; # swiss
 } NR == 12 {
 	playercount = $1;
 	print "  <players>";
