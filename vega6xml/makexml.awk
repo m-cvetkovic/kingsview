@@ -96,6 +96,7 @@ function calc_score(resultcode, iswhite) {
 #   registration: 0=opened, 1=closed
 #   tournament_status= 0=wait pairing, 1=wait result
 #   use Kallithea 2009 rule for Buchholz: 1=yes, 0=no
+	current_round = $2;
 	pairing = $3;
 	print "  <pairing>" pairing "</pairing>";
 	if (pairing == 5)
@@ -151,11 +152,17 @@ function calc_score(resultcode, iswhite) {
 #	4(7)->46
 #	6(14)->108 (18+1)*5= 13+(playercount+1)*sections
 	rounds = split ($0, roundgames);
+	max_games = 0;
+	for (i in roundgames) {
+		if (roundgames[i] > max_games) {
+			max_games=roundgames[i];
+		}
+	}
 	game = 0;
 } NR > 13+(playercount+1)*sections+1 &&
-  NR < 13+(playercount+1)*sections+1 + rounds {
+  NR <= 13+(playercount+1)*sections+1 + max_games {
 	++game;
-	for (round=1; round<=rounds; ++round) {
+	for (round=1; round<=current_round; ++round) {
 		if (game <= roundgames[round]) {
 			code=sprintf ("%07d", $round);
 			white[round,game] = substr(code,1,3);
@@ -164,10 +171,9 @@ function calc_score(resultcode, iswhite) {
 			#print "ROUND:" round " game:" game " WHITE:" white[round,game] ":BLACK:" black[round,game];
 		}
 	}
-	maxgame = game;
 } END {
 	print "  <rounds>";
-	for (round=1; round<=rounds; ++round) {
+	for (round=1; round<=current_round; ++round) {
 		printf ("    <round id=\"%d\"", round);
 		if (round in apgnfiles) {
 			printf (" pgnfile=\"r%d.pgn\" htmlfile=\"r%d.html\"",
@@ -184,7 +190,8 @@ function calc_score(resultcode, iswhite) {
 			} else {
 				rc = resultcode[round,game];
 				if (rc == 1 || rc == 5 || rc == 0) status=1; # complete, counts
-				else if (rc == 7 || rc == 9) status=0; # not complete
+				# not complete (7=adjourned, 9=notplayed)
+				else if (rc == 7 || rc == 9) status=0;
 				else status=2; # complete, forfeit
 				printf ("      <game status=\"%d\">", status);
 				printf ("<player id=\"%d\" color=\"white\" oponent=\"%d\" score=\"%s\"/>",

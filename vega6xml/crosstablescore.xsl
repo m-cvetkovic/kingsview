@@ -137,20 +137,11 @@
     <xsl:param name="mygame"/>
     <xsl:choose>
       <xsl:when test="$mygame/@status = '0'">*</xsl:when>
-      <xsl:when test="$mygame/@status = '2'">
-	<xsl:choose>
-	  <xsl:when test="$mygame/@score = '0'">-</xsl:when>
-	  <xsl:when test="$mygame/@score = '1'">1</xsl:when>
-	  <xsl:when test="$mygame/@score = '0.5'">½</xsl:when>
-	  <xsl:otherwise>?</xsl:otherwise>
-	</xsl:choose>
-      </xsl:when>
       <xsl:otherwise>
 	<xsl:choose>
-	  <xsl:when test="$mygame/@score = '0'">0</xsl:when>
-	  <xsl:when test="$mygame/@score = '1'">1</xsl:when>
+	  <xsl:when test="not($mygame/@score)">-</xsl:when>
 	  <xsl:when test="$mygame/@score = '0.5'">½</xsl:when>
-	  <xsl:otherwise>?</xsl:otherwise>
+	  <xsl:otherwise><xsl:value-of select="$mygame/@score"/></xsl:otherwise>
 	</xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
