@@ -176,21 +176,37 @@
 	  <xsl:variable name="pgame" select="game/player[@id=$id]"/>
 	  <xsl:choose>
 	    <xsl:when test="$pgame">
+
+	      <xsl:for-each select="$pgame">
+
 	      <xsl:variable
 		  name="oponentrating"
-		  select="/tournament/players/player[@id=$pgame/@oponent]/rating"/>
+		  select="/tournament/players/player[@id=current()/@oponent]/rating"/>
+	      <!--xsl:variable
+		  name="oponentrating"
+		  select="/tournament/players/player[@id=$pgame/@oponent]/rating"/-->
 	      <xsl:variable name="expectresult">
 		<xsl:call-template name="expectresult">
 		  <xsl:with-param name="ratingdiff" select="$rating - $oponentrating"/>
 		</xsl:call-template>
 	      </xsl:variable>
-	      <game round="{@id}"
+	      <!--game round="{@id}"
 		    status="{$pgame/../@status}"
 		    oponent="{$pgame/@oponent}"
 		    oponentrating="{$oponentrating}"
 		    color="{$pgame/@color}"
 		    score="{$pgame/@score}"
+		    expectscore="{$expectresult}"/-->
+
+	      <game round="{../../@id}"
+		    status="{../@status}"
+		    oponent="{@oponent}"
+		    oponentrating="{$oponentrating}"
+		    color="{@color}"
+		    score="{@score}"
 		    expectscore="{$expectresult}"/>
+
+	      </xsl:for-each>
 	    </xsl:when>
 	    <!-- bye in round-robin -->
 	    <!--xsl:when test="bye[@playerid=$id]">
