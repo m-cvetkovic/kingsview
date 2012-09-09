@@ -232,7 +232,7 @@
 	</xsl:for-each>
       </xsl:variable>
 
-      <xsl:if test="/tournament/pairing=5 or count(exsl:node-set($games)/game[@status!=2]) != '0'">
+      <!--xsl:if test="/tournament/pairing=5 or count(exsl:node-set($games)/game[@status!=2]) != '0'"-->
 	<player id="{@id}">
 
 	  <xsl:copy-of select="name"/>
@@ -280,7 +280,7 @@
 	  </perfrt>
 
 	</player>
-      </xsl:if>
+      <!--/xsl:if-->
   </xsl:template>
 
   <xsl:template match="rounds"><xsl:copy-of select="."/></xsl:template>
