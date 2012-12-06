@@ -86,7 +86,7 @@
 	      <th colspan="3">
 		<xsl:choose>
 		  <xsl:when test="/tournament/@nmax">
-		    <xsl:value-of select="sum($player/games/game[position() &lt; 8]/@score)"/>
+		    <xsl:value-of select="$player/best8score"/>
 		  </xsl:when>
 		  <xsl:otherwise>
 		    <xsl:value-of select="sum($player/games/game/@score)"/>

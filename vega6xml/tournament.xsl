@@ -88,6 +88,7 @@
 	<li><a href="./">Cross Table</a></li>
 	<li><a href="./playercard.html">Player Report</a></li>
 	<li><a href="./rounds.html">Game Results</a></li>
+	<li><a href="./ratings.html">Ratings</a></li>
       </ul>
       <xsl:if test="count(//pgnfiles/pgn) + count(//rounds/round[@htmlfile]) != 0">
       <h2>Games:</h2>
