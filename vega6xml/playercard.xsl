@@ -54,13 +54,13 @@
 	    <xsl:value-of select="$player/rating"/>
 	  </caption>
 	  <thead>
-	    <tr><th rowspan="2">Round</th><th rowspan="2">Color</th><th colspan="3">Oponent</th><th rowspan="2">Diff</th><th rowspan="2">Exp</th><th rowspan="2">Res</th></tr>
+	    <tr><th rowspan="2">Round</th><th rowspan="2">Color</th><th colspan="3">Oponent</th><th rowspan="2">Diff</th><th rowspan="2">Exp</th><th rowspan="2">Res</th><th rowspan="2" class="center">Rating<br/>Adj.</th></tr>
 	    <tr><th>ID</th><th>Name</th><th>Rating</th></tr>
 	  </thead>
 
 	  <tfoot>
 	    <tr>
-	      <th colspan="5" rowspan="2">Games played:</th>
+	      <th colspan="6" rowspan="2">Games played:</th>
 	      <th class="center">W</th><th class="center">B</th><th class="center">T</th>
 	    </tr>
 	    <tr>
@@ -69,11 +69,11 @@
 	      <th class="center"><xsl:value-of select="count($player/games/game[@status='1'])"/></th>
 	    </tr>
 	    <tr>
-	      <th colspan="5">New rating:</th>
+	      <th colspan="6">New rating:</th>
 	      <th colspan="3"><xsl:value-of select="$player/newrating"/></th>
 	    </tr>
 	    <tr>
-	      <th colspan="5">
+	      <th colspan="6">
 	      <xsl:text>Score</xsl:text>
 	      <xsl:if test="/tournament/@nmax">
 		<xsl:text> from best </xsl:text>
@@ -148,42 +148,50 @@
 
       <xsl:choose>
 	<xsl:when test="@oponent=0">
-	  <td/><td/><td>BYE</td><td/><td/><td/><td/>
+	  <td/><td/><td>BYE</td><td/><td/><td/><td/><td/>
 	</xsl:when>
 	<xsl:otherwise>
-      <xsl:element name="td">
-	<xsl:attribute name="class"><xsl:value-of select="@color"/></xsl:attribute>
-	<xsl:value-of select="@color"/>
-      </xsl:element>
-      <td class="number"><xsl:value-of select="@oponent"/></td>
-      <td>
-	<xsl:element name="a">
-	  <xsl:attribute name="href">#p<xsl:value-of select="@oponent"/></xsl:attribute>
-	  <xsl:value-of select="../../../player[@id=current()/@oponent]/name"/>
-	</xsl:element>
-      </td>
-      <td class="number"><xsl:value-of select="@oponentrating"/></td>
-      <td class="number"><xsl:value-of select="../../rating - @oponentrating"/></td>
-      <td class="number"><xsl:value-of select="@expectscore"/></td>
-      <td class="number">
-	<xsl:choose>
-	  <xsl:when test="@status='1'">
-	    <!-- complete rated games -->
-	    <xsl:value-of select="@score"/>
-	    <xsl:if test="@oponentrating &lt; ../../weakest8oponent">
-	      <xsl:text>*</xsl:text>
-	    </xsl:if>
-	  </xsl:when>
-	  <xsl:when test="@status='0'">
-	    <!-- adjourned games -->
-	    <xsl:text>adj</xsl:text>
-	  </xsl:when>
-	  <xsl:otherwise>
-	    <!-- forfeit games -->
-	    <xsl:value-of select="@score"/><xsl:text>F</xsl:text>
-	  </xsl:otherwise>
-	</xsl:choose>
-      </td>
+	  <xsl:element name="td">
+	    <xsl:attribute name="class"><xsl:value-of select="@color"/></xsl:attribute>
+	    <xsl:value-of select="@color"/>
+	  </xsl:element>
+	  <td class="number"><xsl:value-of select="@oponent"/></td>
+	  <td>
+	    <xsl:element name="a">
+	      <xsl:attribute name="href">#p<xsl:value-of select="@oponent"/></xsl:attribute>
+	      <xsl:value-of select="../../../player[@id=current()/@oponent]/name"/>
+	    </xsl:element>
+	  </td>
+	  <td class="number"><xsl:value-of select="@oponentrating"/></td>
+	  <td class="number"><xsl:value-of select="../../rating - @oponentrating"/></td>
+	  <td class="number"><xsl:value-of select="@expectscore"/></td>
+	  <td class="number">
+	    <xsl:choose>
+	      <xsl:when test="@status='1'">
+		<!-- complete rated games -->
+		<xsl:value-of select="@score"/>
+		<xsl:if test="@oponentrating &lt; ../../weakest8oponent">
+		  <xsl:text>*</xsl:text>
+		</xsl:if>
+	      </xsl:when>
+	      <xsl:when test="@status='0'">
+		<!-- adjourned games -->
+		<xsl:text>adj</xsl:text>
+	      </xsl:when>
+	      <xsl:otherwise>
+		<!-- forfeit games -->
+		<xsl:value-of select="@score"/><xsl:text>F</xsl:text>
+	      </xsl:otherwise>
+	    </xsl:choose>
+	  </td>
+
+	  <td class="number">
+	      <xsl:if test="@status='1'">
+		<!-- complete rated games -->
+		<xsl:value-of select="round(32 * (@score - @expectscore))"/>
+	      </xsl:if>
+	  </td>
+
 	</xsl:otherwise>
       </xsl:choose>
     </xsl:element>

@@ -29,6 +29,8 @@ $(tdir)/%.html: %s.pgn $(scriptdir)/games.xml $(tmpdir)/players.xml
 
 crosstablescore: $(tdir) $(tdir)/index.html
 
+ratings: $(tdir) $(tdir)/ratings.html
+
 playercard: $(tdir) $(tdir)/playercard.html
 
 rounds: $(tdir) $(tdir)/rounds.html
@@ -43,6 +45,9 @@ $(tmpdir) $(tdir) $(cssdir):
 
 $(tdir)/index.html: $(tmpdir)/crosstablescore.html $(tdir)
 	cp $(tmpdir)/crosstablescore.html $@
+
+$(tdir)/ratings.html: $(tmpdir)/ratings.html $(tdir)
+	cp $(tmpdir)/ratings.html $@
 
 $(tmpdir)/%.html: $(scriptdir)/%.xsl $(tmpdir)/players.xml $(tmpdir)/players.xml $(xsldeps)
 	xsltproc -o $@ $< $(tmpdir)/players.xml

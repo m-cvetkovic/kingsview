@@ -100,7 +100,9 @@ function calc_score(resultcode, iswhite) {
 	pairing = $3;
 	print "  <pairing>" pairing "</pairing>";
 	if (pairing == 5)
-		sections=4; # Round Robin
+		sections=4; # Round Robin 2
+	else if (pairing == 2)
+		sections=4; # Round Robin 1
 	else # pairing = 7
 		sections=5; # swiss
 } NR == 12 {
