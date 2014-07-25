@@ -85,9 +85,9 @@
 	    <xsl:value-of select="player[@color='white']/@score"/>
 	    <xsl:text> - </xsl:text>
 	    <xsl:value-of select="player[@color='black']/@score"/>
-	    <xsl:if test="@status = '2'">F</xsl:if>
 	  </xsl:otherwise>
 	</xsl:choose>
+	<xsl:if test="@status = '2'">F</xsl:if>
       </td>
     </xsl:element>
   </xsl:template>

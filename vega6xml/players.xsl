@@ -268,14 +268,14 @@
 
 	  <newrating>
 	    <xsl:call-template name="newrt">
-	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[@status='1']"/>
+	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[position() &lt;= $nmax]"/>
 	      <xsl:with-param name="oldrating" select="rating"/>
 	    </xsl:call-template>
 	  </newrating>
 
 	  <perfrt>
 	    <xsl:call-template name="perfrt">
-	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[@status='1']"/>
+	      <xsl:with-param name="games" select="exsl:node-set($bestgames)/game[position() &lt;= $nmax]"/>
 	    </xsl:call-template>
 	  </perfrt>
 

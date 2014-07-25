@@ -186,7 +186,7 @@
 	  </td>
 
 	  <td class="number">
-	      <xsl:if test="@status='1'">
+	      <xsl:if test="@status='1' and @oponentrating &gt; ../../weakest8oponent">
 		<!-- complete rated games -->
 		<xsl:value-of select="round(32 * (@score - @expectscore))"/>
 	      </xsl:if>
@@ -198,3 +198,4 @@
   </xsl:template>
 
 </xsl:stylesheet>
+

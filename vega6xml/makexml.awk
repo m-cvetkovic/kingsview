@@ -23,7 +23,7 @@
 #  awk -f makexml.awk <tournament.veg>
 
 function calc_score(resultcode, iswhite) {
-	if (resultcode == 5) return 0.5;
+	if (resultcode ~ /[568]/) return 0.5;
 	if (iswhite && (resultcode == 1 || resultcode==3)) return 1;
 	if (!iswhite && (resultcode == 0 || resultcode==4)) return 1;
 	return 0;
