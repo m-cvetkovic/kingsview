@@ -76,10 +76,10 @@
 
   <xsl:template name="perfrt">
     <xsl:param name="games"/>
-    <xsl:variable name="gamesPlayed" select="count($games)"/>
-    <xsl:variable name="sumOpRat" select="sum($games/@oponentrating)"/>
+    <xsl:variable name="gamesPlayed" select="count($games[@status='1'])"/>
+    <xsl:variable name="sumOpRat" select="sum($games[@status='1']/@oponentrating)"/>
     <xsl:variable name="wins" select="count($games[@score='1'])"/>
-    <xsl:variable name="losses" select="count($games[@score='0'])"/>
+    <xsl:variable name="losses" select="count($games[@score='0' and @status='1'])"/>
     <xsl:value-of select="round(($sumOpRat + 400 * ($wins - $losses)) div $gamesPlayed)"/>
   </xsl:template>
 
@@ -182,21 +182,11 @@
 	      <xsl:variable
 		  name="oponentrating"
 		  select="/tournament/players/player[@id=current()/@oponent]/rating"/>
-	      <!--xsl:variable
-		  name="oponentrating"
-		  select="/tournament/players/player[@id=$pgame/@oponent]/rating"/-->
 	      <xsl:variable name="expectresult">
 		<xsl:call-template name="expectresult">
 		  <xsl:with-param name="ratingdiff" select="$rating - $oponentrating"/>
 		</xsl:call-template>
 	      </xsl:variable>
-	      <!--game round="{@id}"
-		    status="{$pgame/../@status}"
-		    oponent="{$pgame/@oponent}"
-		    oponentrating="{$oponentrating}"
-		    color="{$pgame/@color}"
-		    score="{$pgame/@score}"
-		    expectscore="{$expectresult}"/-->
 
 	      <game round="{../../@id}"
 		    status="{../@status}"
@@ -208,16 +198,6 @@
 
 	      </xsl:for-each>
 	    </xsl:when>
-	    <!-- bye in round-robin -->
-	    <!--xsl:when test="bye[@playerid=$id]">
-	      <game round="{@id}"
-		    status="2"
-		    oponent="-1"
-		    oponentrating="0"
-		    color="grey"
-		    score="0"
-		    expectscore="0"/>
-	    </xsl:when-->
 	    <!-- bye in swiss -->
 	    <xsl:otherwise>
 	      <game round="{@id}"
