@@ -86,7 +86,7 @@
   <xsl:template name="newrt">
     <xsl:param name="games"/>
     <xsl:param name="oldrating"/>
-    <xsl:value-of select="round($oldrating + 32 * (sum($games/@score)-sum($games/@expectscore)))"/>
+    <xsl:value-of select="round($oldrating + 32 * (sum($games[@status='1']/@score)-sum($games[@status='1']/@expectscore)))"/>
   </xsl:template>
 
   <xsl:template name="expectresult">
