@@ -60,7 +60,7 @@
 	  <xsl:element name="th">
 	    <xsl:attribute name="class">center</xsl:attribute>
 	    <xsl:choose>
-	      <xsl:when test="/tournament/@pairing=5">
+	      <xsl:when test="/tournament/@pairing=5 or /tournament/@pairing=2">
 		<xsl:attribute name="class">center</xsl:attribute>
 		<xsl:attribute name="colspan">
 		  <xsl:value-of select="count(player)"/>
@@ -75,19 +75,19 @@
 	      </xsl:otherwise>
 	    </xsl:choose>
 	  </xsl:element>
-	  <xsl:if test="/tournament/@pairing!=5">
+	  <xsl:if test="/tournament/@pairing!=5 and /tournament/@pairing!=2">
 	    <th colspan="3">Games</th>
 	  </xsl:if>
 	  <th rowspan="2">Perf</th>
 	  <th rowspan="2">New<br/>Rating</th>
 	  <th rowspan="2">Score</th>
-	  <xsl:if test="/tournament/@pairing!=5 and /tournament/@nmax">
+	  <xsl:if test="/tournament/@pairing!=5  and /tournament/@pairing!=2 and /tournament/@nmax">
 	    <th rowspan="2">Best <xsl:value-of select="/tournament/@nmax"/><br/>Score</th>
 	  </xsl:if>
 	</tr>
 	<tr>
 	  <xsl:choose>
-	    <xsl:when test="/tournament/@pairing=5">
+	    <xsl:when test="/tournament/@pairing=5 or /tournament/@pairing=2">
 	      <xsl:for-each select="player">
 		<th class="center">
 		  <xsl:value-of select="position()"/>
@@ -165,24 +165,38 @@
       <td class="number"><xsl:value-of select="rating"/></td>
 
       <xsl:choose>
-	<xsl:when test="/tournament/@pairing=5">
-	<xsl:variable name="gg" select="games/game"/>
-	<xsl:for-each select="exsl:node-set($playerranks)/playerrank">
-	  <xsl:sort select="@rank" data-type="number"/>
-	  <xsl:choose>
-	    <xsl:when test="$id = @id"><td class="hole"/></xsl:when>
-	    <xsl:otherwise>
-	      <td class="grey">
-		<xsl:call-template name="printscore_rr">
-		  <xsl:with-param name="mygame" select="$gg[@color='white'and @oponent=current()/@id]"/>
-		</xsl:call-template>
-		<xsl:call-template name="printscore_rr">
-		  <xsl:with-param name="mygame" select="$gg[@color='black'and @oponent=current()/@id]"/>
-		</xsl:call-template>
-	      </td>
-	    </xsl:otherwise>
-	  </xsl:choose>
-	</xsl:for-each>
+	<xsl:when test="/tournament/@pairing=5 or /tournament/@pairing=2">
+	  <xsl:variable name="gg" select="games/game"/>
+	  <xsl:for-each select="exsl:node-set($playerranks)/playerrank">
+	    <xsl:sort select="@rank" data-type="number"/>
+	    <xsl:choose>
+	      <xsl:when test="$id = @id"><td class="hole"/></xsl:when>
+	      <xsl:otherwise>
+		<xsl:choose>
+		  <xsl:when test="/tournament/@pairing=5">
+		    <td class="grey">
+		      <xsl:call-template name="printscore_rr">
+			<xsl:with-param name="mygame" select="$gg[@color='white'and @oponent=current()/@id]"/>
+		      </xsl:call-template>
+		      <xsl:call-template name="printscore_rr">
+			<xsl:with-param name="mygame" select="$gg[@color='black'and @oponent=current()/@id]"/>
+		      </xsl:call-template>
+		    </td>
+		  </xsl:when>
+		  <xsl:otherwise>
+		    <!-- single round robin, cells have game color -->
+		    <xsl:variable name="rrgame"
+				  select="$gg[@oponent=current()/@id]"/>
+		    <td class="{$rrgame/@color}">
+		      <xsl:call-template name="printscore_rr">
+			<xsl:with-param name="mygame" select="$rrgame"/>
+		      </xsl:call-template>
+		    </td>
+		  </xsl:otherwise>
+		</xsl:choose>
+	      </xsl:otherwise>
+	    </xsl:choose>
+	  </xsl:for-each>
 	</xsl:when>
 	<xsl:otherwise>
 	  <xsl:for-each select="../../rounds/round">
@@ -216,7 +230,7 @@
 	</xsl:otherwise>
       </xsl:choose>
 
-      <xsl:if test="/tournament/@pairing!=5">
+      <xsl:if test="/tournament/@pairing!=5 and /tournament/@pairing!=2">
 	<!-- Game counts only for swiss tournaments -->
 	<td class="number"><xsl:value-of select="count(games/game[@color='white'])"/></td>
 	<td class="number"><xsl:value-of select="count(games/game[@color='black'])"/></td>
@@ -224,7 +238,7 @@
       </xsl:if>
       <td class="number"><xsl:value-of select="perfrt"/></td>
       <td class="summarynumber"><xsl:value-of select="newrating"/></td>
-      <xsl:if test="/tournament/@pairing!=5 and /tournament/@nmax">
+      <xsl:if test="/tournament/@pairing!=5 and /tournament/@pairing!=2 and /tournament/@nmax">
 	<td class="number"><xsl:value-of select="sum(games/game/@score)"/></td>
       </xsl:if>
       <td class="summarynumber"><xsl:value-of select="best8score"/></td>
