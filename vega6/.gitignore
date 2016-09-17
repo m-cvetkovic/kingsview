@@ -6,6 +6,10 @@ crosstable.txt
 rankgrp.txt
 crosstablescore.txt
 result*.txt
+www*/
+pairs*.txt
+pairs*.man
+SortedPairs*.txt
 
 *-VEG-*.bak
 *.qtf
