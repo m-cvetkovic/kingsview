@@ -1,7 +1,10 @@
 elovar.txt
+eloprev.txt
 playercd.txt
 standing.txt
 crosstable.txt
+rankgrp.txt
+crosstablescore.txt
 result*.txt
 
 *-VEG-*.bak
