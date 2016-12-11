@@ -9,6 +9,8 @@ result*.txt
 www*/
 pairs*.txt
 pairs*.man
+verbose*.txt
+scoregroups*.txt
 SortedPairs*.txt
 
 *-VEG-*.bak
