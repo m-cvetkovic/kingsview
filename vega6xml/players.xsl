@@ -104,7 +104,6 @@
     <xsl:variable name="absscore">
       <xsl:choose>
 	<xsl:when test="$absdiff &lt; 3+1">0.50</xsl:when>
-	<xsl:when test="$absdiff &lt; 3+1">0.50</xsl:when>
 	<xsl:when test="$absdiff &lt; 10+1">0.51</xsl:when>
 	<xsl:when test="$absdiff &lt; 17+1">0.52</xsl:when>
 	<xsl:when test="$absdiff &lt; 25+1">0.53</xsl:when>
