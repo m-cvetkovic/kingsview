@@ -1,0 +1,24 @@
+12: Joe            Aaron
+12: Tom            Martin
+11: Martin         Alex
+11: Pat            Joe
+10: Remi           Milan M
+10: Geof	   Martin
+10: Alex           Richard
+10: Tom            Milan
+ 9: Tom            Remi
+ 9: Martin         Joe
+ 8: Remi           Aaron
+ 8: Joe            Richard
+ 7: Alex           Remi
+ 7: Richard        Berry
+ 7: Pat            Aaron
+ 6: Barry          Milan
+ 5: Martin         Aaron
+ 4: Pat            Martin
+ 4: Milan M	   Milan C
+ 3: Richard        Pat
+ 2: Remi           Martin
+ 1: Geof           Milan M
+ 1: Richard        Martin
+
